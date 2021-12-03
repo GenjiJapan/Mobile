@@ -11,6 +11,7 @@ import { createStackNavigator } from "react-navigation-stack";
 import React, { useState } from "react";
 import { Text, View, FlatList } from "react-native";
 import styles from "./screens/Styles";
+import ListContainer from "./screens/ListContainer/ListContainer";
 
 const Nav = createAppContainer(
   createStackNavigator({ Home, Details }, { initialRouteName: "Home" })
@@ -24,10 +25,7 @@ const data = new Array(100).fill(null).map((v, i) => ({
 export default function App() {
   return (
     <View style={styles.container}>
-      <FlatList
-        data={data}
-        renderItem={({ item }) => <Text>{item.value} </Text>}
-      />
+      <ListContainer />
     </View>
   );
 }
