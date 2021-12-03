@@ -23,7 +23,7 @@ function ListContainer(props) {
   const [filter, setFilter] = useState("");
   const [data, setData] = useState(
     filterAndSort(
-      new Array(100).fill(null).map((v, i) => `Item ${i}`),
+      new Array(100).fill(null).map((v, i) => i),
       ""
     )
   );

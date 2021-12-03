@@ -6,6 +6,7 @@ export default StyleSheet.create({
     flexDirection: "column",
     paddingTop: 20,
   },
+
   item: {
     margin: 5,
     padding: 5,
@@ -13,6 +14,7 @@ export default StyleSheet.create({
     backgroundColor: "ghostwhite",
     textAlign: "center",
   },
+
   filter: {
     height: 40,
     width: 200,
