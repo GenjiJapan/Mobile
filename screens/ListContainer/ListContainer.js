@@ -8,15 +8,38 @@ const mapItems = (items) => {
   }));
 };
 
+const handleSort = (a, b, asc) => {
+  if (asc) {
+    console.log("giảm dần", -1);
+    if (a < b) return -1;
+
+    console.log("giữ nguyên", 0);
+    if (a === b) return 0;
+
+    console.log("tăng dần", 1);
+    return 1;
+  } else {
+    console.log("giảm dần", -1);
+    if (a > b) return -1;
+
+    console.log("giữ nguyên", 0);
+    if (a === b) return 0;
+
+    console.log("tăng dần", 1);
+    return 1;
+  }
+};
+
 const filterAndSort = (data, text, asc) => {
   return data
     .filter((i) => text.length === 0 || i.includes(text))
-    .sort(
-      asc
-        ? (a, b) => (b > a ? -1 : a === b ? 0 : 1)
-        : (a, b) => (a > b ? -1 : a === b ? 0 : 1)
-    );
+    .sort((a, b) => handleSort(a, b, asc));
 };
+// ? (a, b) => (b > a ? -1 : a === b ? 0 : 1)
+// : (a, b) => (a > b ? -1 : a === b ? 0 : 1)
+
+// handleSort()
+// 1
 
 function ListContainer(props) {
   const [asc, setAsc] = useState(true);
