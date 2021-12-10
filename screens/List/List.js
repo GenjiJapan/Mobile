@@ -9,7 +9,11 @@ export default function List({ Controls, data, onFilter, onSort, asc }) {
     <FlatList
       data={data}
       ListHeaderComponent={<Controls {...{ onFilter, onSort, asc }} />}
-      renderItem={({ item }) => <Text style={styles.item}>{item.value}</Text>}
+      renderItem={({ item }) => (
+        <Text style={styles.item}>
+          {item.id} {item.name}
+        </Text>
+      )}
     />
   );
 }

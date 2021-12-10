@@ -1,69 +1,132 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import List from "../List/List";
 
-const mapItems = (items) => {
-  return items.map((value, i) => ({
-    key: i.toString(),
-    value,
-  }));
-};
+const studentList = [
+  {
+    id: "1811063560",
+    name: "Nguyễn Minh Tiến",
+  },
+  {
+    id: "1811061726",
+    name: "Lê Hoàng Bảo",
+  },
+  {
+    id: "1811062910",
+    name: "Nguyễn Tiến Đạt",
+  },
+  {
+    id: "1811063333",
+    name: "Lê Đức Nghị",
+  },
+  {
+    id: "1711060012",
+    name: "Nguyễn Tuấn Anh",
+  },
+  {
+    id: "1811060165",
+    name: "Trương Tấn Đạt",
+  },
+  {
+    id: "1811062926",
+    name: "Nguyễn Xuân Hà",
+  },
+  {
+    id: "1811062123",
+    name: "Lê Quang Hoàng",
+  },
+  {
+    id: "1811062612",
+    name: "Ngô Minh Khỏe",
+  },
+  {
+    id: "1811062962",
+    name: "Phùng Quốc Hùng",
+  },
+  {
+    id: "1811062483",
+    name: "Vũ Đức Long",
+  },
+  {
+    id: "1811063029",
+    name: "Trần Phát Long",
+  },
+  {
+    id: "1811770007",
+    name: "Huỳnh Nguyễn Thành Đạt",
+  },
+  {
+    id: "1811063087",
+    name: "Nguyễn Tấn Phúc",
+  },
+  {
+    id: "1811061677",
+    name: "Trần Đình Quý",
+  },
+  {
+    id: "1811063305",
+    name: "Trần Đình Trung",
+  },
+  {
+    id: "1811063309",
+    name: "Phạm Anh Tuấn",
+  },
+  {
+    id: "1811063271",
+    name: "Huỳnh Tấn Đạt",
+  },
+  {
+    id: "1811062470",
+    name: "Phan Tấn Kiệt",
+  },
+  {
+    id: "1811062630",
+    name: "Võ Duy Minh Nhựt",
+  },
+  {
+    id: "1811063268",
+    name: "Nguyễn Ngọc Anh Duy",
+  },
+  {
+    id: "1811063328",
+    name: "Hoàng Trọng Kiên",
+  },
+];
 
-const handleSort = (a, b, asc) => {
-  if (asc) {
-    console.log("giảm dần", -1);
-    if (a < b) return -1;
+function filterCustomize(text) {
+  return studentList.filter(
+    (i) => text.length === 0 || i.name.includes(text) || i.id.includes(text)
+  );
+}
 
-    console.log("giữ nguyên", 0);
-    if (a === b) return 0;
+function sortCustomize(data, text, asc) {
+  return data.sort(
+    asc
+      ? (a, b) => (b.id > a.id ? -1 : a.id === b.id ? 0 : 1)
+      : (a, b) => (a.id > b.id ? -1 : a.id === b.id ? 0 : 1)
+  );
+}
 
-    console.log("tăng dần", 1);
-    return 1;
-  } else {
-    console.log("giảm dần", -1);
-    if (a > b) return -1;
+// function mapItems(item) {
+//   return list.map((value, i) => ({ key: i }));
+// }
 
-    console.log("giữ nguyên", 0);
-    if (a === b) return 0;
-
-    console.log("tăng dần", 1);
-    return 1;
-  }
-};
-
-const filterAndSort = (data, text, asc) => {
-  return data
-    .filter((i) => text.length === 0 || i.includes(text))
-    .sort((a, b) => handleSort(a, b, asc));
-};
-// ? (a, b) => (b > a ? -1 : a === b ? 0 : 1)
-// : (a, b) => (a > b ? -1 : a === b ? 0 : 1)
-
-// handleSort()
-// 1
-
-function ListContainer(props) {
+export default function ListContainer() {
   const [asc, setAsc] = useState(true);
   const [filter, setFilter] = useState("");
-  const [data, setData] = useState(
-    filterAndSort(
-      new Array(100).fill(null).map((v, i) => i),
-      ""
-    )
-  );
+  const [data, setData] = useState(sortCustomize(list, ""));
+
   return (
     <List
-      data={mapItems(data)}
+      data={data}
       asc={asc}
       onFilter={(text) => {
         setFilter(text);
-        setData(filterAndSort(data, text, asc));
+        setData(filterCustomize(text));
       }}
       onSort={() => {
         setAsc(!asc);
-        setData(filterAndSort(data, filter, asc));
+        setData(sortCustomize(data, filter, asc));
       }}
     />
   );
 }
-
-export default ListContainer;
